@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 public class XssfExcelTest {
-    private String fileName = "D:\\test.xlsx";
+    private final String fileName = "D:\\test.xlsx";
 
     XssfExcel excel = new XssfExcel(fileName);
 
@@ -41,25 +41,25 @@ public class XssfExcelTest {
 
     @Test
     public void writeLine() {
-        Map<Integer, Object> data = new HashMap<>();
+        Map<Integer, String> data = new HashMap<>();
         data.put(0, "test_1");
         data.put(4, "test_5");
-        data.put(5, 11.11);
-        data.put(7, LocalDateTime.now());
+        data.put(5, "11.11");
+        data.put(7, LocalDateTime.now().toString());
         excel.writeLine(new Line(6, data));
     }
 
     @Test
     public void writeLines(){
-        Map<Integer, Object> data_1 = new HashMap<>();
+        Map<Integer, String> data_1 = new HashMap<>();
         data_1.put(0, "A");
         data_1.put(1, "B");
         data_1.put(2, "C");
-        Map<Integer, Object> data_2 = new HashMap<>();
+        Map<Integer, String> data_2 = new HashMap<>();
         data_2.put(0, "D");
         data_2.put(1, "E");
         data_2.put(2, "F");
-        List<Object> data_3= List.of("G","H","I","J","K","L","M","N");
+        List<String> data_3= List.of("G","H","I","J","K","L","M","N");
         List<Line> lines=List.of(new Line(data_1),new Line(data_2),new Line(data_3));
         excel.writeLines(11,lines);
     }

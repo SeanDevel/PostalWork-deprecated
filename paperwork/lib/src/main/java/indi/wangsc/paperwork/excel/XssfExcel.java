@@ -52,11 +52,7 @@ public class XssfExcel implements Excel {
         Row row = sheet.createRow(grid.getRowAt());
         Cell cell = row.createCell(grid.getColAt());
         cell.setCellValue(String.valueOf(grid.getData()));
-        try {
-            this.workbook.write(new FileOutputStream((excelFile)));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        save();
     }
 
     @Override
@@ -74,7 +70,7 @@ public class XssfExcel implements Excel {
      * shift the range which from 'rowAt' to end-row 'n' times
      *
      * @param rowAt from specific row
-     * @param n shift specific lines
+     * @param n     shift specific lines
      */
     public void shiftRows(int rowAt, int n) {
         int lastRowNum = sheet.getLastRowNum();
@@ -84,21 +80,24 @@ public class XssfExcel implements Excel {
         }
     }
 
+    @Override
     public void writeLine(Line line) {
         shiftRows(line.getRowAt(), 1);
         Row row = sheet.createRow(line.getRowAt());
-        for (Map.Entry<Integer, Object> entry : line.getData().entrySet()) {
-            row.createCell(entry.getKey()).setCellValue(String.valueOf(entry.getValue()));
+        for (var entry : line.getData().entrySet()) {
+            Cell cell = row.createCell(entry.getKey());
+            cell.setCellValue(String.valueOf(entry.getValue()));
         }
         save();
     }
+
 
     public void writeLines(int rowAt, List<Line> linesList) {
         int linesSize = linesList.size();
         shiftRows(rowAt, linesSize);
         for (int i = 0; i < linesSize; i++) {
-            Row row=sheet.createRow(rowAt+i);
-            for (Map.Entry<Integer, Object> entry : linesList.get(i).getData().entrySet()) {
+            Row row = sheet.createRow(rowAt + i);
+            for (var entry : linesList.get(i).getData().entrySet()) {
                 row.createCell(entry.getKey()).setCellValue(String.valueOf(entry.getValue()));
             }
         }
@@ -133,6 +132,7 @@ public class XssfExcel implements Excel {
         return sheetAt;
     }
 
+    @Override
     public void setSheetAt(int sheetAt) {
         this.sheetAt = sheetAt;
     }

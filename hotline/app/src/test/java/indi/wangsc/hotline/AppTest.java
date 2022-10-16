@@ -4,6 +4,15 @@
 package indi.wangsc.hotline;
 
 
+import indi.wangsc.paperwork.excel.Excel;
+import indi.wangsc.paperwork.excel.ExcelFactory;
+import org.junit.Test;
+
 public class AppTest {
+    @Test
+    public void excel(){
+        Excel excel= ExcelFactory.get("D:\\result.xlsx");
+
+    }
     
 }

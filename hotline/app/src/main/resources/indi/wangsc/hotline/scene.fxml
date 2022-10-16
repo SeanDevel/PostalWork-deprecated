@@ -3,10 +3,51 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.StackPane?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
- prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
- fx:controller="indi.wangsc.hotline.Controller">
-    <children>
-        <Label fx:id="label" text="Label" />
-    </children>
-</StackPane>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.VBox?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="indi.wangsc.hotline.Controller" minWidth="420"
+            minHeight="360">
+    <top>
+        <VBox>
+            <padding>
+                <Insets top="20" bottom="20" left="20"/>
+            </padding>
+            <!-- start-up config title -->
+            <HBox>
+                <padding>
+                    <Insets top="5" bottom="5" left="5"/>
+                </padding>
+                <Label fx:id="startupConfigTitle"/>
+            </HBox>
+            <!-- start-up config text-field -->
+            <HBox>
+                <padding>
+                    <Insets top="5" bottom="5" left="5"/>
+                </padding>
+                <TextField fx:id="startupConfigTxt" minWidth="260"/>
+                <Button fx:id="chooseFileBtn" text="choose"/>
+            </HBox>
+            <!-- execute -->
+            <HBox>
+                <padding>
+                    <Insets top="5" bottom="5" left="5"/>
+                </padding>
+                <Button fx:id="executeBtn" text="execute"></Button>
+            </HBox>
+        </VBox>
+    </top>
+</BorderPane>
+        <!--<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"-->
+        <!--           prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"-->
+        <!--           fx:controller="indi.wangsc.hotline.Controller">-->
+        <!--    <TextField fx:id="startupConfigTxt"></TextField>-->
+        <!--    <Button fx:id="executeBtn"></Button>-->
+        <!--    <children>-->
+        <!--        <Label fx:id="label" text="Label" />-->
+        <!--    </children>-->
+        <!--</StackPane>-->

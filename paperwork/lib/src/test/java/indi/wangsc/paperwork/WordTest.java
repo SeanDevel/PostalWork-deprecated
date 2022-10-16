@@ -10,7 +10,7 @@ import java.util.Map;
 public class WordTest {
     private final String filePath = "D:\\test.doc";
 
-    Word word= WordFactory.create(filePath);
+    Word word= WordFactory.get(filePath);
 
 
     @Test

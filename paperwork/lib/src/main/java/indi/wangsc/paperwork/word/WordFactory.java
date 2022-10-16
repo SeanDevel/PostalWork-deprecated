@@ -4,7 +4,7 @@ import indi.wangsc.paperwork.util.FileType;
 
 public class WordFactory {
 
-    public static Word create(String filePath) {
+    public static Word get(String filePath) {
         Word word = null;
         String fileType = FileType.judge(filePath);
         if (fileType.equals("Office 2003")) {

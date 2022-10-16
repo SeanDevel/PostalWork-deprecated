@@ -1,13 +1,9 @@
 package indi.wangsc.hotline;
-import indi.wangsc.paperwork.word.Word;
-import indi.wangsc.paperwork.word.WordFactory;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
-
-import java.util.List;
 
 public class App extends Application{
 
