@@ -16,7 +16,9 @@ import java.util.List;
 public class Task {
 
     public void wordTableToExcelLine(WordTableToExcelLineConfig config) {
-        Excel excel = ExcelFactory.get("D:\\result.xlsx");
+        System.out.println(config.toString());
+        Excel excel = ExcelFactory.get(config.getExcelFilepath());
+        excel.setSheetAt(config.getExcelInsertSheetIndex() - 1);
         int insertLineNumber = config.getExcelInsertLineNumber() - 1;
         int[] tableCellLocation = config.getTableCellLocation();
         try {

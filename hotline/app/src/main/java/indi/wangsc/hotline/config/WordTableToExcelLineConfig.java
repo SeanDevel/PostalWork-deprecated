@@ -37,6 +37,7 @@ public class WordTableToExcelLineConfig {
         this.wordDirectory = map.get("wordDirectory");
         this.tableIndices = IntegerUtil.delimiteredStringToIntArray(map.get("tableIndices"));
         this.tableCellLocation = IntegerUtil.delimiteredStringToIntArray(map.get("tableCellLocation"));
+        
         this.excelFilepath = map.get("excelFilepath");
         this.excelInsertLineNumber = Integer.valueOf(map.get("excelInsertLineNumber"));
         this.excelInsertSheetIndex = Integer.valueOf(map.get("excelInsertSheetIndex"));
