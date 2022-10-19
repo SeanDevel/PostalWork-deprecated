@@ -11,15 +11,9 @@ public class TaskTest {
     Task task=new Task();
 
     @Test
-    public void test(){
+    public void test() throws IOException {
         String configFilepath="D:\\_test\\test.yml";
         WordTableToExcelLineConfig config=new WordTableToExcelLineConfig(configFilepath);
-        task.wordTableToExcelLine(config);
-    }
-
-    @Test
-    public void tes他() throws IOException {
-        Task task=new Task();
-        task.delete();
+        //task.wordTableToExcelLine(config);
     }
 }

@@ -2,15 +2,11 @@ package indi.wangsc.hotline.config;
 
 import indi.wangsc.hotline.util.IntegerUtil;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Map;
 
-public class WordTableToExcelLineConfig {
-    private String configFilepath;
-    private Config config;
+public class WordTableToExcelLineConfig extends Config {
     private String wordDirectory;
     private int[] wordTableIndices;
     private int[] wordTableCellLocation;
@@ -19,26 +15,16 @@ public class WordTableToExcelLineConfig {
     private int excelInsertLineNumber;
     private String wordFilesMoveTo;
 
-    public WordTableToExcelLineConfig(String configFilepath) {
-        this.configFilepath = configFilepath;
-        Path configFilePaths = Paths.get(configFilepath);
-        if (Files.exists(configFilePaths)) {
-            String configFilename = String.valueOf(configFilePaths.getFileName());
-            if (configFilename.endsWith(".yml") || configFilename.endsWith(".yaml")) {
-                this.config = new ConfigTypeYaml();
-            }
-            mapConfig();
-        } else {
-            System.out.println("No Such File......");
-        }
+    public WordTableToExcelLineConfig(String configFilepath) throws IOException {
+        super(configFilepath);
+        mapConfig();
     }
 
     private void mapConfig() {
         Map<String, String> map = this.config.parse(configFilepath);
         this.wordDirectory = map.get("wordDirectory");
-        this.wordTableIndices = IntegerUtil.delimiteredStringToIntArray(map.get("wordTableIndices"));
-        this.wordTableCellLocation = IntegerUtil.delimiteredStringToIntArray(map.get("wordTableCellLocation"));
-
+        this.wordTableIndices = IntegerUtil.delimiterStringToIntArray(map.get("wordTableIndices"));
+        this.wordTableCellLocation = IntegerUtil.delimiterStringToIntArray(map.get("wordTableCellLocation"));
         this.excelFilepath = map.get("excelFilepath");
         this.excelInsertLineNumber = Integer.valueOf(map.get("excelInsertLineNumber")) - 1;
         this.excelInsertSheetIndex = Integer.valueOf(map.get("excelInsertSheetIndex")) - 1;

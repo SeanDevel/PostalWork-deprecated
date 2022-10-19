@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
-public class ConfigTypeYaml implements Config {
+public class ConfigTypeYaml implements ConfigParser {
 
     @Override
     public Map parse(String configFilepath) {

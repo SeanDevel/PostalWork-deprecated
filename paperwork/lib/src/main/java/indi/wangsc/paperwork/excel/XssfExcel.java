@@ -1,5 +1,7 @@
 package indi.wangsc.paperwork.excel;
 
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Cell;
@@ -26,7 +28,9 @@ public class XssfExcel implements Excel {
         if (excelFile.exists()) {
             try {
                 InputStream inputStream = new FileInputStream(excelFile);
+                // OPCPackage opcPackage=OPCPackage.open(excelFile);
                 this.workbook = new XSSFWorkbook(inputStream);
+                inputStream.close();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -45,7 +49,6 @@ public class XssfExcel implements Excel {
         Row row = sheet.createRow(grid.getRowAt());
         Cell cell = row.createCell(grid.getColAt());
         cell.setCellValue(String.valueOf(grid.getData()));
-        save();
     }
 
     @Override
@@ -53,8 +56,8 @@ public class XssfExcel implements Excel {
         try {
             FileOutputStream out = new FileOutputStream(excelFile);
             workbook.write(out);
-            out.close();
             workbook.close();
+            out.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -70,7 +73,6 @@ public class XssfExcel implements Excel {
         int lastRowNum = sheet.getLastRowNum();
         if (lastRowNum > -1 && lastRowNum >= rowAt) {
             sheet.shiftRows(rowAt, lastRowNum, n);
-            save();
             return true;
         }
         return false;
@@ -84,7 +86,6 @@ public class XssfExcel implements Excel {
             Cell cell = row.createCell(entry.getKey());
             cell.setCellValue(String.valueOf(entry.getValue()));
         }
-        save();
     }
 
     @Override
@@ -97,7 +98,6 @@ public class XssfExcel implements Excel {
                 row.createCell(entry.getKey()).setCellValue(String.valueOf(entry.getValue()));
             }
         }
-        save();
     }
 
     public String getFilePath() {

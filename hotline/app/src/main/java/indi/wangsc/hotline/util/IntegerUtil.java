@@ -13,7 +13,7 @@ public class IntegerUtil {
         return result;
     }
 
-    public static int[] delimiteredStringToIntArray(String str) {
+    public static int[] delimiterStringToIntArray(String str) {
         String[] strings = StringUtil.splitByCommonDelimiter(str);
         return stringArrayToNoOffsetIntArray(strings);
     }

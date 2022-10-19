@@ -19,6 +19,7 @@ public class XssfExcelTest {
         XssfExcel excel = new XssfExcel(fileName);
         Grid grid = new Grid(0, 0, "A Test...");
         excel.writeGrid(grid);
+        excel.save();
     }
 
     @Test
@@ -40,6 +41,7 @@ public class XssfExcelTest {
         XssfExcel excel = new XssfExcel(fileName);
         if(excel.shiftRows(0, 3)){
             System.out.println("\nsuccess...\n");
+            excel.save();
         }else{
             System.out.println("\nfailed...\n");
         }
@@ -54,6 +56,7 @@ public class XssfExcelTest {
         data.put(5, "11.11");
         data.put(7, LocalDateTime.now().toString());
         excel.writeLine(new Line(6, data));
+        excel.save();
     }
 
     @Test
@@ -71,5 +74,6 @@ public class XssfExcelTest {
         List<String> data_3= List.of("G","H","I","J","K","L","M","N");
         List<Line> lines=List.of(new Line(data_1),new Line(data_2),new Line(data_3));
         excel.writeLines(11,lines);
+        excel.save();
     }
 }
