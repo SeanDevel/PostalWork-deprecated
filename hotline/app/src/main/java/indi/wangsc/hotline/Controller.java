@@ -1,5 +1,6 @@
 package indi.wangsc.hotline;
 
+import indi.wangsc.hotline.config.WordTableToExcelLineConfig;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -39,6 +40,12 @@ public class Controller {
                 startupConfigTxt.setText(chosenFilePath);
             }
         });
+        executeBtn.setOnAction((ActionEvent e) -> {
+            String startupConfigFilePath = startupConfigTxt.getText();
+            WordTableToExcelLineConfig config = new WordTableToExcelLineConfig(startupConfigFilePath);
+            Task task = new Task();
+            task.wordTableToExcelLine(config);
+        });
     }
 
     private String pathOfChosenFile() {
@@ -49,17 +56,17 @@ public class Controller {
         return (file == null) ? EMPTY_FILEPATH : file.getAbsolutePath();
     }
 
-    private void startupConfig(){
+    private void startupConfig() {
         Path startupConfigFile = Paths.get(START_UP_CONFIG_FILE_NAME);
         if (!Files.exists(startupConfigFile)) {
             try {
                 Files.createFile(startupConfigFile);
-                FileOutputStream out=new FileOutputStream(startupConfigFile.toFile());
-                FileChannel fileChannel=out.getChannel();
-                ByteBuffer byteBuffer=ByteBuffer.allocate(1024);
-                while(true){
-                    int readNumber=fileChannel.read(byteBuffer);
-                    if(readNumber==-1){
+                FileOutputStream out = new FileOutputStream(startupConfigFile.toFile());
+                FileChannel fileChannel = out.getChannel();
+                ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
+                while (true) {
+                    int readNumber = fileChannel.read(byteBuffer);
+                    if (readNumber == -1) {
                         break;
                     }
                     byteBuffer.flip();

@@ -2,6 +2,8 @@ package indi.wangsc.paperwork.word;
 
 import indi.wangsc.paperwork.util.FileType;
 
+import java.io.IOException;
+
 public class WordFactory {
 
     public static Word get(String filePath) {

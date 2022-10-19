@@ -4,11 +4,10 @@ import org.apache.poi.hwpf.HWPFDocument;
 import org.apache.poi.hwpf.usermodel.Range;
 import org.apache.poi.hwpf.usermodel.Table;
 import org.apache.poi.hwpf.usermodel.TableIterator;
+import org.apache.poi.poifs.filesystem.DocumentEntry;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +26,8 @@ public class HwpfWord implements Word {
         this.wordFile = new File(filePath);
         if (wordFile.exists()) {
             try {
-                this.hwpfDocument = new HWPFDocument(new POIFSFileSystem(wordFile));
+                InputStream inputStream=new FileInputStream(wordFile);
+                this.hwpfDocument = new HWPFDocument(inputStream);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -95,11 +95,20 @@ public class HwpfWord implements Word {
 
     }
 
+    public Boolean isFileExists(){
+        return this.wordFile.exists();
+    }
+
     @Override
     public void save() {
         try {
+//            wordFile.createNewFile();
+//            POIFSFileSystem poifsFileSystem=new POIFSFileSystem(wordFile);
+//            this.hwpfDocument=new HWPFDocument(new FileInputStream(wordFile));
+//            hwpfDocument.write(new FileOutputStream(wordFile));
             FileOutputStream out = new FileOutputStream(filePath);
             hwpfDocument.write(out);
+            hwpfDocument.close();
             out.close();
         } catch (IOException e) {
             throw new RuntimeException(e);

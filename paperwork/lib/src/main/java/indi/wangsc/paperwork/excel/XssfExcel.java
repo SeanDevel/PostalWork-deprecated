@@ -5,10 +5,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 import java.util.Map;
 
@@ -26,18 +23,14 @@ public class XssfExcel implements Excel {
         this.filePath = filePath;
         this.excelFile = new File(filePath);
         this.sheetAt = 0;
-        try {
-            if (excelFile.exists()) {
-                this.workbook = new XSSFWorkbook(new FileInputStream(excelFile));
-            } else {
-                this.workbook = new XSSFWorkbook();
-                this.sheet = this.workbook.createSheet();
-                //workbook.write(new FileOutputStream(excelFile));
-                save();
+        if (excelFile.exists()) {
+            try {
+                InputStream inputStream = new FileInputStream(excelFile);
+                this.workbook = new XSSFWorkbook(inputStream);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
             this.sheet = workbook.getSheetAt(sheetAt);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -61,6 +54,7 @@ public class XssfExcel implements Excel {
             FileOutputStream out = new FileOutputStream(excelFile);
             workbook.write(out);
             out.close();
+            workbook.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -72,12 +66,14 @@ public class XssfExcel implements Excel {
      * @param rowAt from specific row
      * @param n     shift specific lines
      */
-    public void shiftRows(int rowAt, int n) {
+    public Boolean shiftRows(int rowAt, int n) {
         int lastRowNum = sheet.getLastRowNum();
-        if (sheet.getRow(rowAt) != null && lastRowNum > -1 && lastRowNum >= rowAt) {
+        if (lastRowNum > -1 && lastRowNum >= rowAt) {
             sheet.shiftRows(rowAt, lastRowNum, n);
             save();
+            return true;
         }
+        return false;
     }
 
     @Override
@@ -91,7 +87,7 @@ public class XssfExcel implements Excel {
         save();
     }
 
-
+    @Override
     public void writeLines(int rowAt, List<Line> linesList) {
         int linesSize = linesList.size();
         shiftRows(rowAt, linesSize);

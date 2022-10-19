@@ -12,11 +12,12 @@ public class WordTableToExcelLineConfig {
     private String configFilepath;
     private Config config;
     private String wordDirectory;
-    private int[] tableIndices;
-    private int[] tableCellLocation;
+    private int[] wordTableIndices;
+    private int[] wordTableCellLocation;
     private String excelFilepath;
     private int excelInsertSheetIndex;
     private int excelInsertLineNumber;
+    private String wordFilesMoveTo;
 
     public WordTableToExcelLineConfig(String configFilepath) {
         this.configFilepath = configFilepath;
@@ -35,24 +36,25 @@ public class WordTableToExcelLineConfig {
     private void mapConfig() {
         Map<String, String> map = this.config.parse(configFilepath);
         this.wordDirectory = map.get("wordDirectory");
-        this.tableIndices = IntegerUtil.delimiteredStringToIntArray(map.get("tableIndices"));
-        this.tableCellLocation = IntegerUtil.delimiteredStringToIntArray(map.get("tableCellLocation"));
-        
+        this.wordTableIndices = IntegerUtil.delimiteredStringToIntArray(map.get("wordTableIndices"));
+        this.wordTableCellLocation = IntegerUtil.delimiteredStringToIntArray(map.get("wordTableCellLocation"));
+
         this.excelFilepath = map.get("excelFilepath");
-        this.excelInsertLineNumber = Integer.valueOf(map.get("excelInsertLineNumber"));
-        this.excelInsertSheetIndex = Integer.valueOf(map.get("excelInsertSheetIndex"));
+        this.excelInsertLineNumber = Integer.valueOf(map.get("excelInsertLineNumber")) - 1;
+        this.excelInsertSheetIndex = Integer.valueOf(map.get("excelInsertSheetIndex")) - 1;
+        this.wordFilesMoveTo = map.get("wordFilesMoveTo");
     }
 
     public String getWordDirectory() {
         return wordDirectory;
     }
 
-    public int[] getTableIndices() {
-        return tableIndices;
+    public int[] getWordTableIndices() {
+        return wordTableIndices;
     }
 
-    public int[] getTableCellLocation() {
-        return tableCellLocation;
+    public int[] getWordTableCellLocation() {
+        return wordTableCellLocation;
     }
 
     public String getExcelFilepath() {
@@ -67,16 +69,25 @@ public class WordTableToExcelLineConfig {
         return excelInsertLineNumber;
     }
 
+    public String getWordFilesMoveTo() {
+        return wordFilesMoveTo;
+    }
+
+    public void setWordFilesMoveTo(String wordFilesMoveTo) {
+        this.wordFilesMoveTo = wordFilesMoveTo;
+    }
+
     @Override
     public String toString() {
         return "WordTableToExcelLineConfig{" +
-                "config=" + config +
+                "configFilepath='" + configFilepath + '\'' +
                 ", wordDirectory='" + wordDirectory + '\'' +
-                ", tableIndices=" + Arrays.toString(tableIndices) +
-                ", tableCellLocation=" + Arrays.toString(tableCellLocation) +
+                ", wordTableIndices=" + Arrays.toString(wordTableIndices) +
+                ", wordTableCellLocation=" + Arrays.toString(wordTableCellLocation) +
                 ", excelFilepath='" + excelFilepath + '\'' +
                 ", excelInsertSheetIndex=" + excelInsertSheetIndex +
                 ", excelInsertLineNumber=" + excelInsertLineNumber +
+                ", wordFilesMoveTo='" + wordFilesMoveTo + '\'' +
                 '}';
     }
 }

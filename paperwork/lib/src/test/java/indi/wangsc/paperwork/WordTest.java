@@ -4,29 +4,25 @@ import indi.wangsc.paperwork.word.Word;
 import indi.wangsc.paperwork.word.WordFactory;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class WordTest {
-    private final String filePath = "D:\\test.doc";
-
-    Word word= WordFactory.get(filePath);
-
+    private final String filePath = "D:\\_test\\test.docx";
 
     @Test
     public void getTableContent() {
-        for(var cellText:word.getTableContent(0,new int[]{0,0,1,1})){
+        Word word = WordFactory.get(filePath);
+        for (var cellText : word.getTableContent(0, new int[]{0, 0, 1, 1})) {
             System.out.println(cellText);
         }
     }
 
-    /*
+
     @Test
     public void writeParagraph(){
-        word.writeParagraph("Testing write paragraph.","仿宋_GB2312",15.75);
+        Word word = WordFactory.get(filePath);
+        word.writeParagraph("测试写入 Test writing.","仿宋_GB2312",15.75);
         word.save();
     }
-
+/*
     @Test
     public void replace(){
         Map<String,String> map=new HashMap<>();

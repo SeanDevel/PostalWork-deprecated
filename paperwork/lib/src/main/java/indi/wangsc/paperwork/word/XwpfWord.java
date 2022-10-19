@@ -6,10 +6,7 @@ import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 
-import java.io.IOException;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -30,12 +27,11 @@ public class XwpfWord implements Word {
         this.wordFile = new File(filePath);
         if (wordFile.exists()) {
             try {
-                this.xwpfDocument = new XWPFDocument(new FileInputStream(wordFile));
+                InputStream inputStream=new FileInputStream(wordFile);
+                this.xwpfDocument = new XWPFDocument(inputStream);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-        } else {
-            throw new RuntimeException("No such File");
         }
     }
 
@@ -111,8 +107,12 @@ public class XwpfWord implements Word {
     @Override
     public void save() {
         try {
-            FileOutputStream out = new FileOutputStream(filePath);
+            if(!wordFile.exists()){
+                wordFile.createNewFile();
+            }
+            FileOutputStream out = new FileOutputStream(wordFile);
             xwpfDocument.write(out);
+            xwpfDocument.close();
             out.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
