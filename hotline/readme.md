@@ -11,7 +11,7 @@ wordTableCellLocation: "[2,2][2,6][3,6][4,2][6,2][7,2][1,4][10,2]"
 excelFilepath: "D:\\_test\\excel_file_for_record\\Mayor_Hotline.xlsx"
 excelInsertLineNumber: "2"
 excelInsertSheetIndex: "1"
-wordFilesCopyTo: "D:\\_test\\word_files_counted"
+wordFilesMoveTo: "D:\\_test\\word_files_counted"
 
 ```
 
@@ -36,4 +36,18 @@ wordFilesCopyTo: "D:\\_test\\word_files_counted"
 
 ```bash
 java --module-path .\lib\javafx --add-modules javafx.controls,javafx.graphics,javafx.fxml -jar app.jar
+```
+
+### executable way
+
+```c
+#include <stdlib.h>
+#include <Windows.h>
+
+int main()
+{
+    ShowWindow(GetConsoleWindow(), SW_HIDE);
+    system("java --module-path .\\lib\\javafx --add-modules javafx.controls,javafx.graphics,javafx.fxml -jar app.jar");
+    return 0;
+}
 ```

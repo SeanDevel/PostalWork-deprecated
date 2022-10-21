@@ -39,6 +39,9 @@
                 </padding>
                 <Button fx:id="executeBtn" text="execute"/>
             </HBox>
+            <HBox>
+                <Label fx:id="processCondition"/>
+            </HBox>
         </VBox>
     </top>
 </BorderPane>
